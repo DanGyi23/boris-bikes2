@@ -1,4 +1,3 @@
-
 class DockingStation
   attr_reader :capacity
   DEFAULT_CAPACITY = 20

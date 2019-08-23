@@ -42,7 +42,7 @@ describe DockingStation do
 
     it 'accepts a bike if it is broken' do
       allow(bike).to receive(:report_broken)
-      expect { subject.dock(bike) }.not_to raise_error 'Bike is broken'
+      expect { subject.dock(bike) }.not_to raise_error
     end
   end
 
