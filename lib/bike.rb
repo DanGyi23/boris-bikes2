@@ -14,6 +14,4 @@ attr_reader :broken
     @broken
   end
 
-
-
 end

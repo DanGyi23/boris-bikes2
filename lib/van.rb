@@ -2,25 +2,27 @@ require "./lib/boris_bikes"
 require "./lib/bike"
 
 class Van
+attr_reader :bikes
+DEFAULT_CAPACITY = 20
 
-attr_reader :garage
-
-  def initialize
-    @garage = []
+  def initialize(capacity = DEFAULT_CAPACITY)
+    @bikes = []
+    @capacity = capacity
   end
 
-  def collect_from_dock
-    # error here. Need to extract the instance variable for each instance of DockingStation
-    broken_bikes = @bikes.dup - (@bikes.delete_if { |bike| bike.broken? })
-    (@garage << broken_bikes).flatten
+  def collect_from_dock(dock)
+    @bikes << dock.broken_bikes
+    @bikes = @bikes.flatten
   end
 
   def repair_at_garage
-    @garage.map { |bike| bike.report_repaired }
+    @bikes.map { |bike| bike.report_repaired }
   end
 
-  def distribute_to_docking_station
-      @garage # then find a way to return each of these values to docking station
+  def distribute_to_docking_station(dock)
+    @bikes.length.times do
+      dock.bikes << @bikes.pop
+    end
   end
 
 end

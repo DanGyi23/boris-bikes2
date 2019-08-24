@@ -1,8 +1,13 @@
 require "boris_bikes"
+require "support/shared_examples_for_bike_container"
+
 
 describe DockingStation do
-
+  
       let(:bike) {double :bike}
+
+  it_behaves_like BikeContainer
+    
 
   it "responded to release_bike method" do
     expect(subject).to respond_to(:release_bike)
@@ -20,30 +25,13 @@ describe DockingStation do
     expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
   end
 
-  describe 'initialization' do
-    subject { DockingStation.new }
-      it 'defaults capacity' do
-      described_class::DEFAULT_CAPACITY.times do
-        subject.dock(bike)
-      end
-      expect{ subject.dock(bike) }.to raise_error 'Docking station full'
-    end
-  end
-
   it "check bikes at docking station" do
     allow(bike).to receive(:dock).and_return([bike])
   end
 
-  describe '#dock' do
-    it 'raises an error when full' do
-      subject.capacity.times { subject.dock double(:bike)}
-      expect { subject.dock double(:bike) }.to raise_error 'Docking station full'
-    end
-
-    it 'accepts a bike if it is broken' do
-      allow(bike).to receive(:report_broken)
-      expect { subject.dock(bike) }.not_to raise_error
-    end
+  it 'accepts a bike if it is broken' do
+    allow(bike).to receive(:report_broken)
+    expect { subject.dock(bike) }.not_to raise_error
   end
 
   describe '#release_bike' do

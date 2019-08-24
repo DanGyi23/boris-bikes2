@@ -23,16 +23,15 @@ describe Van do
     it "removes the broken bikes from the dock(@bikes) using collect_from_dock" do
       bike.report_broken
       dockingstation.dock(bike)
-      subject.collect_from_dock
-      expect(@bikes).to eq([])
+      subject.collect_from_dock(dockingstation)
+      expect(dockingstation.bikes).to eq([])
     end
 
     it "adds bikes to garage" do
       bike.report_broken
       dockingstation.dock(bike)
-      subject.collect_from_dock
-      subject.deliver_to_garage
-      expect(@garage).to eq([bike])
+      subject.collect_from_dock(dockingstation)
+      expect(subject.bikes).to eq([bike])
     end
 
     it "responds to repair_at_garage" do
@@ -42,10 +41,19 @@ describe Van do
     it "makes @broken == false for a broken bike (i.e. repairs a bike)" do
       bike.report_broken
       dockingstation.dock(bike)
-      subject.collect_from_dock
+      subject.collect_from_dock(dockingstation)
       subject.repair_at_garage
-      subject.collect_from_garage
-      expect(@garage[0].broken?).to eq(false)
+      expect(subject.bikes.pop.broken?).to eq(false)
     end
+
+    it "returns repaired bikes to the docking station" do
+    bike.report_broken
+    dockingstation.dock(bike)
+    subject.collect_from_dock(dockingstation)
+    subject.repair_at_garage
+    subject.distribute_to_docking_station(dockingstation)
+    expect(dockingstation.bikes[-1].broken?).to eq(false)
+  end
+
 
 end
