@@ -1,6 +1,9 @@
-## BORIS BIKES PROGRAM
+## Boris Bikes Program
 
-This Ruby program is designed to mimic the functionality of the London Boris Bikes, "communal" bikes that live in docking-stations around London. Users can:
+This Ruby program is designed to mimic the functionality of the London Boris Bikes, "communal" bikes that live in docking-stations around London. 
+The program can be run in IRB in your terminal, and is tested using RSpec.
+
+**Users can:**
 
 - Release bikes `.release_bike` - applies to Docking Station instances - note, if there are no working bikes available, the user won't be able to release a bike
 - Report a bike as broken `.report_broken` - applies to Bike instances
@@ -17,3 +20,5 @@ This Ruby program is designed to mimic the functionality of the London Boris Bik
 `variable = Bike.new`
 3. Create a new van
 `variable = Van.new`
+
+If you have any suggestions or feedback about the program, please let me know!
